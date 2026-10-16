@@ -60,8 +60,19 @@ The meshes have been extensively modified, including geometry cleanup, rescaling
 
 The upstream license terms and redistribution permissions for these assets remain subject to clarification with the original author.
 
-## Asset requiring further provenance review
+## Warehouse wall texture
 
-Before publishing, confirm and document the source and redistribution license
-for the remaining externally sourced environment texture under
-`src/environment_description/models/warehouse_80x70`.
+The following texture is a byte-identical copy of
+`materials/textures/jersey_barrier_diffuse.jpg` from version 6 of the
+OpenRobotics "Jersey Barrier" model on Gazebo Fuel:
+
+- `src/environment_description/models/warehouse_80x70/meshes/wall_diffuse.jpg`
+- Original model authors: Cole Biesemeyer and Nate Koenig
+- Upstream source:
+  `https://fuel.gazebosim.org/1.0/OpenRobotics/models/Jersey%20Barrier`
+- SHA-256:
+  `57f552ef666849bc3a21086aa89fccb12a3906eea743907ef05a90ceb5bfbaa2`
+
+Gazebo Fuel identifies the model as Creative Commons Zero v1.0 Universal
+(CC0 1.0). A copy of the legal code is provided in
+`LICENSES/CC0-1.0-Gazebo-Fuel.txt`.
