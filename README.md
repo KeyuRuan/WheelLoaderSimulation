@@ -131,13 +131,6 @@ ros2 topic pub --once /tube_position_controller_act/commands \
   std_msgs/msg/Float64MultiArray "{data: [0.20]}"
 ```
 
-The included helper script runs a complete raise/lower sequence:
-
-```bash
-./loader_motion_sequence.sh
-```
-
-Run `./loader_motion_sequence.sh --help` for its configurable target values.
 Stop the vehicle by publishing zero wheel velocities and zero valve openings.
 
 ## Useful topics
