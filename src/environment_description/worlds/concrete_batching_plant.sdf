@@ -1,0 +1,126 @@
+<sdf version='1.9'>
+  <world name='warehouse_80x70'>
+    <physics type='ode'>
+      <max_step_size>0.003</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <plugin name='ignition::gazebo::systems::Physics' filename='libignition-gazebo-physics-system.so'/>
+    <plugin name='ignition::gazebo::systems::UserCommands' filename='libignition-gazebo-user-commands-system.so'/>
+    <plugin name='ignition::gazebo::systems::SceneBroadcaster' filename='libignition-gazebo-scene-broadcaster-system.so'/>
+    <plugin name='ignition::gazebo::systems::Sensors' filename='libignition-gazebo-sensors-system.so'>
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin name='ignition::gazebo::systems::Imu' filename='libignition-gazebo-imu-system.so'/>
+
+    <scene>
+      <ambient>1 1 1 1</ambient>
+      <background>0.3 0.7 0.9 1</background>
+      <shadows>false</shadows>
+      <grid>false</grid>
+    </scene>
+
+    <light type="directional" name="sun">
+      <cast_shadows>false</cast_shadows>
+      <pose>0 0 20 0 0 0</pose>
+      <diffuse>0.9 0.9 0.9 1</diffuse>
+      <specular>0.3 0.3 0.3 1</specular>
+      <direction>0.1 0.1 -1</direction>
+    </light>
+
+    <gravity>0 0 -9.8</gravity>
+
+    <include>
+      <uri>model://warehouse_80x70</uri>
+      <name>warehouse</name>
+      <pose>0 0 0 0 0 0</pose>
+    </include>
+
+    <!-- 3 dumpsters between div_wall_3_left (X=-20) and west wall (X=-40) -->
+    <!-- Evenly distributed along X: -23, -30, -37 (spacing ~7m), Y=-25 (center of south wall region) -->
+    <include>
+      <uri>model://dumpster</uri>
+      <name>dumpster_0</name>
+      <pose>-23 -25 0 0 0 3.1416</pose>
+    </include>
+
+    <include>
+      <uri>model://dumpster</uri>
+      <name>dumpster_1</name>
+      <pose>-30 -25 0 0 0 3.1416</pose>
+    </include>
+
+    <include>
+      <uri>model://dumpster</uri>
+      <name>dumpster_2</name>
+      <pose>-37 -25 0 0 0 3.1416</pose>
+    </include>
+
+
+    <!-- ══ 五种沙堆，分布在北侧三仓 + 南侧两仓 ══════════════════════ -->
+    <!-- 模型坐标：X=20m（填满仓宽），坡面沿Y轴，工作面（低Z）在模型-Y端，平台在+Y端 -->
+    <!-- 北侧仓：yaw=0，模型-Y朝世界-Y（朝Y=5开口），平台背靠Y=35北墙 -->
+    <!-- 南侧仓：yaw=π，模型-Y朝世界+Y（朝Y=-15开口），平台背靠Y=-35南墙 -->
+    <!-- 北仓center_y = 35 - pile_y/2 - plat_y；南仓center_y = -35 + pile_y/2 + plat_y -->
+
+    <!-- 北A仓 (X=0~20)：x09，沙堆9m+平台6m，背靠Y=35 -->
+    <!-- center_y = 35 - 4.5 - 6 = 24.5 -->
+    <model name="sand_pile_x09">
+      <static>true</static>
+      <pose>10 24.5 0 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><mesh><uri>model://sandandmud/meshes/sandandmud_x09.dae</uri></mesh></geometry></collision>
+        <visual name="v"><geometry><mesh><uri>model://sandandmud/meshes/sandandmud_x09.dae</uri></mesh></geometry></visual>
+      </link>
+    </model>
+
+    <!-- 北B仓 (X=20~40)：x15，沙堆15m+平台10m，背靠Y=35 -->
+    <!-- center_y = 35 - 7.5 - 10 = 17.5 -->
+    <model name="sand_pile_x15">
+      <static>true</static>
+      <pose>30 17.5 0 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><mesh><uri>model://sandandmud/meshes/sandandmud_x15.dae</uri></mesh></geometry></collision>
+        <visual name="v"><geometry><mesh><uri>model://sandandmud/meshes/sandandmud_x15.dae</uri></mesh></geometry></visual>
+      </link>
+    </model>
+
+    <!-- 北C仓 (X=-20~0)：x12，沙堆12m+平台11m，背靠Y=35 -->
+    <!-- center_y = 35 - 6 - 11 = 18 -->
+    <model name="sand_pile_x12">
+      <static>true</static>
+      <pose>-10 18 0 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><mesh><uri>model://sandandmud/meshes/sandandmud_x12.dae</uri></mesh></geometry></collision>
+        <visual name="v"><geometry><mesh><uri>model://sandandmud/meshes/sandandmud_x12.dae</uri></mesh></geometry>
+          <material><diffuse>0.55 0.45 0.30 1</diffuse><ambient>0.55 0.45 0.30 1</ambient></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- 南D仓 (X=0~20)：x04，沙堆4m+平台5m，背靠Y=-35 -->
+    <!-- center_y = -35 + 2 + 5 = -28 -->
+    <model name="sand_pile_x04">
+      <static>true</static>
+      <pose>10 -28 0 0 0 3.1416</pose>
+      <link name="link">
+        <collision name="c"><geometry><mesh><uri>model://sandandmud/meshes/sandandmud_x04.dae</uri></mesh></geometry></collision>
+        <visual name="v"><geometry><mesh><uri>model://sandandmud/meshes/sandandmud_x04.dae</uri></mesh></geometry></visual>
+      </link>
+    </model>
+
+    <!-- 南E仓 (X=20~40)：x06，沙堆6m+平台1m，背靠Y=-35 -->
+    <!-- center_y = -35 + 3 + 1 = -31 -->
+    <model name="sand_pile_x06">
+      <static>true</static>
+      <pose>30 -31 0 0 0 3.1416</pose>
+      <link name="link">
+        <collision name="c"><geometry><mesh><uri>model://sandandmud/meshes/sandandmud_x06.dae</uri></mesh></geometry></collision>
+        <visual name="v"><geometry><mesh><uri>model://sandandmud/meshes/sandandmud_x06.dae</uri></mesh></geometry>
+          <material><diffuse>0.55 0.45 0.30 1</diffuse><ambient>0.55 0.45 0.30 1</ambient></material>
+        </visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>

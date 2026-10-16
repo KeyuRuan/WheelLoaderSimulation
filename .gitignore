@@ -1,0 +1,50 @@
+# ROS 2 / colcon outputs
+build/
+install/
+log/
+
+# Python-generated files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Compiled files
+*.a
+*.d
+*.dll
+*.dylib
+*.exe
+*.gch
+*.la
+*.lai
+*.lib
+*.lo
+*.mod
+*.o
+*.obj
+*.out
+*.pch
+*.pdb
+*.slo
+*.smod
+*.so
+
+# Editors and local tooling
+.agents/
+.claude/
+.codex/
+.idea/
+.vscode/
+*.swp
+*~
+
+# Local credentials and environment files
+.aws/
+.env
+.env.*
+!.env.example
+
+# Backup files
+*.bak
+*.bk
+*.orig

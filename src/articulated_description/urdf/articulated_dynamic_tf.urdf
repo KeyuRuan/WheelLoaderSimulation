@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<robot name="wheel_loader_dynamic_tf">
+  <!-- Simulation-side dynamic TF chain rooted at base_link.
+       This complements the localization-side fixed sensor frames. -->
+
+  <link name="base_link"/>
+  <link name="behindbase_Link"/>
+  <link name="frontbase_link"/>
+  <link name="bucket_arm_Link"/>
+  <link name="outer_tube_link"/>
+  <link name="inner_cylinder_link"/>
+  <link name="bucket_Link"/>
+  <link name="leftfrontwheel_Link"/>
+  <link name="rightfrontwheel_Link"/>
+  <link name="leftbehindwheel_Link"/>
+  <link name="rightbehindwheel_Link"/>
+
+  <joint name="base_link_to_behindbase" type="fixed">
+    <origin xyz="2.1 0 0.835" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="behindbase_Link"/>
+  </joint>
+
+  <joint name="behindbase_to_frontbase" type="revolute">
+    <origin xyz="0.9998948043319065 -0.014504491375377697 -1.585" rpy="0 0 -0.014505"/>
+    <parent link="behindbase_Link"/>
+    <child link="frontbase_link"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-0.698" upper="0.698" effort="10000" velocity="10.0"/>
+  </joint>
+
+  <joint name="bucket_pitch_joint" type="revolute">
+    <origin xyz="2.03 0 -0.767588" rpy="0 -0.0689393308210947 0"/>
+    <parent link="bucket_arm_Link"/>
+    <child link="bucket_Link"/>
+    <axis xyz="0 -1 0"/>
+    <limit lower="-3.14" upper="0.0" effort="500000" velocity="0.6"/>
+  </joint>
+
+  <joint name="bucket_arm_axis" type="revolute">
+    <origin xyz="-0.64 0 1.87" rpy="0 0 0"/>
+    <parent link="frontbase_link"/>
+    <child link="bucket_arm_Link"/>
+    <axis xyz="0 -1 0"/>
+    <limit lower="-0.25" upper="1.0" effort="200000" velocity="0.5"/>
+  </joint>
+
+  <joint name="arm_to_cylinder" type="revolute">
+    <origin xyz="0.857194 0 0.217242" rpy="0 -0.3 0"/>
+    <parent link="bucket_arm_Link"/>
+    <child link="outer_tube_link"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-3.1416" upper="3.1416" effort="50000" velocity="1.0"/>
+  </joint>
+
+  <joint name="tube_to_inner_cylinder" type="prismatic">
+    <origin xyz="0.202188 0 0" rpy="0 0 0"/>
+    <parent link="outer_tube_link"/>
+    <child link="inner_cylinder_link"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-0.3" upper="0.4249" effort="50000" velocity="0.25"/>
+  </joint>
+
+  <joint name="leftfrontwheel_to_frontbase" type="continuous">
+    <origin xyz="-0.5 0.821 0.75" rpy="3.1416 0.91009 0"/>
+    <parent link="frontbase_link"/>
+    <child link="leftfrontwheel_Link"/>
+    <axis xyz="0 -1 0"/>
+    <limit effort="10000" velocity="10.0"/>
+  </joint>
+
+  <joint name="rightfrontwheel_to_frontbase" type="continuous">
+    <origin xyz="-0.5 -0.821 0.75" rpy="-3.1416 -0.72502 3.1416"/>
+    <parent link="frontbase_link"/>
+    <child link="rightfrontwheel_Link"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="10000" velocity="10.0"/>
+  </joint>
+
+  <joint name="leftbehindwheel_to_behindbase" type="continuous">
+    <origin xyz="-2.1 0.725 -0.835" rpy="0 0.12873 -3.1416"/>
+    <parent link="behindbase_Link"/>
+    <child link="leftbehindwheel_Link"/>
+    <axis xyz="0 -1 0"/>
+    <limit effort="10000" velocity="10.0"/>
+  </joint>
+
+  <joint name="rightbehindwheel_to_behindbase" type="continuous">
+    <origin xyz="-2.1 -0.725 -0.835" rpy="-3.1416 -0.9242 3.1416"/>
+    <parent link="behindbase_Link"/>
+    <child link="rightbehindwheel_Link"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="10000" velocity="10.0"/>
+  </joint>
+</robot>

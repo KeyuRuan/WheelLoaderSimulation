@@ -1,0 +1,883 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"
+  name="vehicle_urdf_model">
+  <xacro:property name="hydraulic_tube_depth" value="0.5249" />
+  <xacro:property name="hydraulic_cylinder_start_offset" value="0.05843" />
+
+  <!-- Lift-arm rear mount reference:
+       CAD mesh shaft center = (-0.28, 1.41, 0.0)
+       URDF joint origin     = (-0.28, 0.0, 1.41). -->
+  <link
+    name="frontbase_link">
+    <inertial>
+      <origin
+        xyz="-0.15633 2.387E-07 1.0079"
+        rpy="0 0 0" />
+      <mass
+        value="5327.1" />
+      <inertia
+        ixx="1543.9"
+        ixy="0.0014228"
+        ixz="222.2"
+        iyy="2510.6"
+        iyz="-0.0019455"
+        izz="2276.8" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://articulated_description/meshes/frontbase_Link_with_cylinder.dae" />
+      </geometry>
+      <material
+        name="yellow_body">
+        <color
+          rgba="0.8 0.6 0.0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://articulated_description/meshes/frontbase_Link_with_cylinder.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="leftfrontwheel_Link">
+    <inertial>
+      <origin
+        xyz="-1.1102E-16 -0.17395 -1.1102E-16"
+        rpy="0 0 0" />
+      <mass
+        value="492.2" />
+      <inertia
+        ixx="84.12"
+        ixy="1.0524E-16"
+        ixz="-1.4211E-14"
+        iyy="158.30"
+        iyz="-4.5117E-17"
+        izz="84.12" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://articulated_description/meshes/leftfrontwheel_Link.dae" />
+      </geometry>
+      <material
+        name="black_wheel">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.175 0" rpy="1.5708 0 0" />
+      <geometry>
+        <cylinder radius="0.75" length="0.35" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="leftfrontwheel_to_frontbase"
+    type="continuous">
+    <origin
+      xyz="-0.5 0.821 0.75"
+      rpy="3.1416 0.91009 -7.8779E-17" />
+    <parent
+      link="frontbase_link" />
+    <child
+      link="leftfrontwheel_Link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      effort="10000"
+      velocity="10.0" />
+    <dynamics damping="1.0" friction="0.2" />
+  </joint>
+  <link
+    name="rightfrontwheel_Link">
+    <inertial>
+      <origin
+        xyz="1.1102E-16 -0.17395 -1.1102E-16"
+        rpy="0 0 0" />
+      <mass
+        value="492.2" />
+      <inertia
+        ixx="84.12"
+        ixy="8.8544E-17"
+        ixz="-3.0304E-49"
+        iyy="158.30"
+        iyz="-1.3628E-17"
+        izz="84.12" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://articulated_description/meshes/rightfrontwheel_Link.dae" />
+      </geometry>
+      <material
+        name="black_wheel">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.175 0" rpy="1.5708 0 0" />
+      <geometry>
+        <cylinder radius="0.75" length="0.35" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rightfrontwheel_to_frontbase"
+    type="continuous">
+    <origin
+      xyz="-0.5 -0.821 0.75"
+      rpy="-3.1416 -0.72502 3.1416" />
+    <parent
+      link="frontbase_link" />
+    <child
+      link="rightfrontwheel_Link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      effort="10000"
+      velocity="10.0" />
+    <dynamics damping="1.0" friction="0.2" />
+  </joint>
+  <link
+    name="bucket_arm_Link">
+    <inertial>
+      <origin
+        xyz="0.7 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="10.0" />
+      <inertia
+        ixx="1.5"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="7.5"
+        iyz="0.0"
+        izz="7.5" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://articulated_description/meshes/bucket_arm_nocylinder_wide.dae" />
+      </geometry>
+      <material
+        name="yellow_body">
+        <color
+          rgba="0.8 0.6 0.0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://articulated_description/meshes/bucket_arm_nocylinder_wide.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="bucket_arm_axis"
+    type="revolute">
+    <origin
+      xyz="-0.64 0 1.87"
+      rpy="0 0 0" />
+    <parent
+      link="frontbase_link" />
+    <child
+      link="bucket_arm_Link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-0.25"
+      upper="1.0"
+      effort="200000"
+      velocity="0.5" />
+    <dynamics damping="40.0" friction="3.0" />
+  </joint>
+  <joint
+    name="arm_to_rocker"
+    type="fixed">
+    <origin
+      xyz="0.95719 0 -0.082758"
+      rpy="0 -0.7 0" />
+    <parent
+      link="bucket_arm_Link" />
+    <child
+      link="rocker_holder_link" />
+  </joint>
+  <link
+    name="rocker_holder_link">
+    <inertial>
+      <origin
+        xyz="-0.25 0 -0.01"
+        rpy="0 0 0" />
+      <mass
+        value="10.0" />
+      <inertia
+        ixx="0.0333333333"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="0.1333333333"
+        iyz="0.0"
+        izz="0.1333333333" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://articulated_description/meshes/rocker_holder.dae" />
+      </geometry>
+      <material
+        name="yellow_body">
+        <color
+          rgba="0.8 0.6 0.0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://articulated_description/meshes/rocker_holder.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="rocker_link">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="10.0" />
+      <inertia
+        ixx="0.05"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="0.1"
+        iyz="0.0"
+        izz="0.1" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://articulated_description/meshes/rocker_link.dae" />
+      </geometry>
+      <material
+        name="yellow_body">
+        <color
+          rgba="0.8 0.6 0.0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://articulated_description/meshes/rocker_link.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rocker_joint"
+    type="revolute">
+    <origin
+      xyz="0.342735349 0 0"
+      rpy="0 1.57079632679 0" />
+    <parent
+      link="rocker_holder_link" />
+    <child
+      link="rocker_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="50000"
+      velocity="1.0" />
+    <dynamics damping="0.5" friction="0.0" />
+  </joint>
+  <link
+    name="connector_to_bucket_link">
+    <inertial>
+      <origin
+        xyz="0.24 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="10.0" />
+      <inertia
+        ixx="0.0375"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="0.1"
+        iyz="0.0"
+        izz="0.1" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://articulated_description/meshes/connector_to_bucket.dae" />
+      </geometry>
+      <material
+        name="yellow_body">
+        <color
+          rgba="0.8 0.6 0.0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://articulated_description/meshes/connector_to_bucket.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rocker_to_bucket"
+    type="revolute">
+    <origin
+      xyz="0.70625 0 -0.15"
+      rpy="0 0 0" />
+    <parent
+      link="rocker_link" />
+    <child
+      link="connector_to_bucket_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-2.35619"
+      upper="1.0"
+      effort="50000"
+      velocity="1.1" />
+    <dynamics damping="0.5" friction="0.0" />
+  </joint>
+  <link
+    name="outer_tube_link">
+    <inertial>
+      <origin
+        xyz="0.26 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="10.0" />
+      <inertia
+        ixx="0.032"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="0.32"
+        iyz="0.0"
+        izz="0.32" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://articulated_description/meshes/outer_tube_with_eye.dae" />
+      </geometry>
+      <material
+        name="yellow_body">
+        <color
+          rgba="0.8 0.6 0.0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://articulated_description/meshes/outer_tube_with_eye.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="front_link_to_cylinder"
+    type="revolute">
+    <origin
+      xyz="-0.642805 0 1.867242"
+      rpy="0 0 0" />
+    <parent
+      link="frontbase_link" />
+    <child
+      link="outer_tube_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-3.1416"
+      upper="3.1416"
+      effort="50000"
+      velocity="1.0" />
+    <dynamics damping="0.5" friction="0.0" />
+  </joint>
+  <link
+    name="inner_cylinder_link">
+    <inertial>
+      <origin
+        xyz="0.30 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="10.0" />
+      <inertia
+        ixx="0.0333333333"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="0.3333333333"
+        iyz="0.0"
+        izz="0.3333333333" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://articulated_description/meshes/cylinder_with_boss.dae" />
+      </geometry>
+      <material
+        name="hydraulic_steel">
+        <color
+          rgba="0.75 0.75 0.78 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://articulated_description/meshes/cylinder_with_boss.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="tube_to_inner_cylinder"
+    type="prismatic">
+    <origin
+      xyz="${0.102188 + hydraulic_cylinder_start_offset} 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="outer_tube_link" />
+    <child
+      link="inner_cylinder_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-0.3"
+      upper="1.0"
+      effort="50000"
+      velocity="0.25" />
+    <dynamics damping="80.0" friction="5.0" />
+  </joint>
+  <link
+    name="bucket_Link">
+    <inertial>
+      <origin
+        xyz="-0.03198 0.000116 0.681543"
+        rpy="0 0 0" />
+      <mass
+        value="5571.5" />
+      <inertia
+        ixx="2447.950394"
+        ixy="-0.529463106"
+        ixz="12.851593333"
+        iyy="1867.890464"
+        iyz="-0.330614662"
+        izz="2763.814961" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="-0.77221 0 1.155943"
+        rpy="-1.5708 0 0" />
+      <geometry>
+        <mesh
+          filename="package://articulated_description/meshes/bucket_Link_alt.dae" />
+      </geometry>
+      <material
+        name="yellow_body">
+        <color
+          rgba="0.8 0.6 0.0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="-0.77221 0 1.155943"
+        rpy="-1.5708 0 0" />
+      <geometry>
+        <mesh
+          filename="package://articulated_description/meshes/bucket_Link_alt.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="bucket_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="2.03 0 -0.767588"
+      rpy="-2.6404883777743E-17 -0.0689393308210947 1.7078045080171E-17" />
+    <parent
+      link="bucket_arm_Link" />
+    <child
+      link="bucket_Link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-3.14"
+      upper="0.0"
+      effort="500000"
+      velocity="0.7" />
+    <dynamics damping="120.0" friction="5.0" />
+  </joint>
+  <link
+    name="behindbase_Link">
+    <inertial>
+      <origin
+        xyz="-1.9425 -0.023265 -0.39896"
+        rpy="0 0 0" />
+      <mass
+        value="9132.4" />
+      <inertia
+        ixx="3573.8"
+        ixy="-296.36"
+        ixz="-1566.6"
+        iyy="15157.0"
+        iyz="2.589"
+        izz="14368.0" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://articulated_description/meshes/behindbase_Link.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://articulated_description/meshes/behindbase_Link.dae" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="behindbase_to_frontbase"
+    type="revolute">
+    <origin
+      xyz="-1.5 0 1.585"
+      rpy="1.2202E-16 -2.4629E-16 0.014505" />
+    <parent
+      link="frontbase_link" />
+    <child
+      link="behindbase_Link" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-0.61"
+      upper="0.61"
+      effort="200000"
+      velocity="0.1525" />
+    <dynamics damping="40.0" friction="3.0" />
+  </joint>
+  <link
+    name="leftbehindwheel_Link">
+    <inertial>
+      <origin
+        xyz="0 -0.17395 2.2204E-16"
+        rpy="0 0 0" />
+      <mass
+        value="492.2" />
+      <inertia
+        ixx="84.12"
+        ixy="1.2212E-15"
+        ixz="3.399E-16"
+        iyy="158.30"
+        iyz="6.3838E-16"
+        izz="84.12" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://articulated_description/meshes/leftbehindwheel_Link.dae" />
+      </geometry>
+      <material
+        name="black_wheel">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.175 0" rpy="1.5708 0 0" />
+      <geometry>
+        <cylinder radius="0.75" length="0.35" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="leftbehindwheel_to_behindbase"
+    type="continuous">
+    <origin
+      xyz="-2.1 0.725 -0.835"
+      rpy="1.7384E-17 0.12873 -3.1416" />
+    <parent
+      link="behindbase_Link" />
+    <child
+      link="leftbehindwheel_Link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      effort="10000"
+      velocity="10.0" />
+    <dynamics damping="1.0" friction="0.2" />
+  </joint>
+  <link
+    name="rightbehindwheel_Link">
+    <inertial>
+      <origin
+        xyz="0 -0.17395 -2.2204E-16"
+        rpy="0 0 0" />
+      <mass
+        value="492.2" />
+      <inertia
+        ixx="84.12"
+        ixy="6.1062E-16"
+        ixz="-1.3869E-15"
+        iyy="158.30"
+        iyz="-4.4409E-16"
+        izz="84.12" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://articulated_description/meshes/rightbehindwheel_Link.dae" />
+      </geometry>
+      <material
+        name="black_wheel">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.175 0" rpy="1.5708 0 0" />
+      <geometry>
+        <cylinder radius="0.75" length="0.35" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rightbehindwheel_to_behindbase"
+    type="continuous">
+    <origin
+      xyz="-2.1 -0.725 -0.835"
+      rpy="-3.1416 -0.9242 3.1416" />
+    <parent
+      link="behindbase_Link" />
+    <child
+      link="rightbehindwheel_Link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      effort="10000"
+      velocity="10.0" />
+    <dynamics damping="1.0" friction="0.2" />
+  </joint>
+
+  <!-- Localization base frame: rear axle center -->
+  <link name="base_link"/>
+
+  <joint name="behindbase_to_base_link" type="fixed">
+    <origin xyz="-2.1 0 -0.835" rpy="0 0 0"/>
+    <parent link="behindbase_Link"/>
+    <child link="base_link"/>
+  </joint>
+
+<!-- ros2_control -->
+  <ros2_control name="ArticulatedVehicle" type="system">
+    <hardware>
+      <plugin>ign_ros2_control/IgnitionSystem</plugin>
+    </hardware>
+    <joint name="leftfrontwheel_to_frontbase">
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="rightfrontwheel_to_frontbase">
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="leftbehindwheel_to_behindbase">
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="rightbehindwheel_to_behindbase">
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="behindbase_to_frontbase">
+      <command_interface name="velocity"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="bucket_arm_axis">
+      <command_interface name="position">
+        <param name="initial_value">0.5</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">0.5</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="rocker_joint">
+      <command_interface name="position">
+        <param name="initial_value">0.32</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">0.32</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="rocker_to_bucket">
+      <command_interface name="position">
+        <param name="initial_value">-1.45</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">-1.45</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="front_link_to_cylinder">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="tube_to_inner_cylinder">
+      <command_interface name="position">
+        <param name="initial_value">0.35</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">0.35</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="bucket_pitch_joint">
+      <command_interface name="position">
+        <param name="initial_value">-0.70</param>
+      </command_interface>
+      <state_interface name="position">
+        <param name="initial_value">-0.70</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+  </ros2_control>
+
+  <!-- ign_ros2_control plugin -->
+  <gazebo>
+    <plugin filename="libign_ros2_control-system.so"
+            name="ign_ros2_control::IgnitionROS2ControlPlugin">
+      <parameters>$(find articulated_description)/config/controllers.yaml</parameters>
+    </plugin>
+  </gazebo>
+
+  <!-- 轮子摩擦 -->
+  <gazebo reference="leftfrontwheel_Link">
+    <mu1>0.85</mu1><mu2>0.85</mu2><kp>2e5</kp><kd>40.0</kd>
+  </gazebo>
+  <gazebo reference="rightfrontwheel_Link">
+    <mu1>0.85</mu1><mu2>0.85</mu2><kp>2e5</kp><kd>40.0</kd>
+  </gazebo>
+  <gazebo reference="leftbehindwheel_Link">
+    <mu1>0.85</mu1><mu2>0.85</mu2><kp>2e5</kp><kd>40.0</kd>
+  </gazebo>
+  <gazebo reference="rightbehindwheel_Link">
+    <mu1>0.85</mu1><mu2>0.85</mu2><kp>2e5</kp><kd>40.0</kd>
+  </gazebo>
+
+  <!-- VLP-16 LiDAR，安装在后车轴中心(base_link)上方 -->
+  <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
+
+  <xacro:VLP-16 parent="base_link" name="velodyne" topic="/velodyne_points" hz="10" gpu="true">
+    <origin xyz="1.400 0 1.685" rpy="0 0 0"/>
+  </xacro:VLP-16>
+
+  <!-- IMU，安装在后车体 -->
+  <link name="imu_link">
+    <inertial>
+      <mass value="0.05"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0"
+               iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+  </link>
+
+  <joint name="imu_joint" type="fixed">
+    <origin xyz="1.400 0 1.685" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+  </joint>
+
+  <gazebo reference="imu_link">
+    <sensor name="imu_sensor" type="imu">
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+      <visualize>false</visualize>
+      <topic>imu/data_raw</topic>
+      <gz_frame_id>imu_link</gz_frame_id>
+      <imu>
+        <angular_velocity>
+          <x><noise type="gaussian"><mean>0</mean><stddev>0.0</stddev></noise></x>
+          <y><noise type="gaussian"><mean>0</mean><stddev>0.0</stddev></noise></y>
+          <z><noise type="gaussian"><mean>0</mean><stddev>0.0</stddev></noise></z>
+        </angular_velocity>
+        <linear_acceleration>
+          <x><noise type="gaussian"><mean>0</mean><stddev>0.0</stddev></noise></x>
+          <y><noise type="gaussian"><mean>0</mean><stddev>0.0</stddev></noise></y>
+          <z><noise type="gaussian"><mean>0</mean><stddev>0.0</stddev></noise></z>
+        </linear_acceleration>
+      </imu>
+    </sensor>
+  </gazebo>
+</robot>

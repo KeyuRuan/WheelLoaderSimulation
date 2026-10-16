@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>velodyne_gazebo_plugins</name>
+  <version>2.0.0</version>
+  <description>
+    Gazebo Fortress plugin to provide simulated data from Velodyne laser scanners.
+  </description>
+
+  <license>BSD-3-Clause</license>
+  <author>Kevin Hallenbeck</author>
+  <maintainer email="rahgirrafi@gmail.com">Kevin Hallenbeck</maintainer>
+  <url type="repository">https://github.com/rahgirrafi/velodyne_simulator_ros2_gz.git</url>
+  <url type="bugtracker">https://github.com/rahgirrafi/velodyne_simulator_ros2_gz/issues</url>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+
+  <!-- Gazebo Fortress (Ignition naming convention) -->
+  <depend>ignition-gazebo6</depend>
+  <depend>ignition-sensors6</depend>
+  <depend>ignition-transport11</depend>
+  <depend>ignition-msgs8</depend>
+
+  <exec_depend>ros_gz_bridge</exec_depend>
+  <exec_depend>ros_gz_sim</exec_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+    <gazebo_ros gazebo_model_path="${prefix}/models"/>
+  </export>
+
+</package>

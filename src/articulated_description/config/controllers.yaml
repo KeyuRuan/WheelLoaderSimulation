@@ -1,0 +1,76 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    wheel_velocity_controller_act:
+      type: velocity_controllers/JointGroupVelocityController
+
+    hinge_position_controller_act:
+      type: velocity_controllers/JointGroupVelocityController
+
+    bucket_arm_position_controller_act:
+      type: position_controllers/JointGroupPositionController
+
+    rocker_joint_position_controller_act:
+      type: position_controllers/JointGroupPositionController
+
+    rocker_to_bucket_position_controller_act:
+      type: position_controllers/JointGroupPositionController
+
+    front_link_to_cylinder_position_controller_act:
+      type: position_controllers/JointGroupPositionController
+
+    tube_position_controller_act:
+      type: position_controllers/JointGroupPositionController
+
+    bucket_pitch_position_controller_act:
+      type: position_controllers/JointGroupPositionController
+
+
+wheel_velocity_controller_act:
+  ros__parameters:
+    joints:
+      - leftfrontwheel_to_frontbase
+      - rightfrontwheel_to_frontbase
+      - leftbehindwheel_to_behindbase
+      - rightbehindwheel_to_behindbase
+
+hinge_position_controller_act:
+  ros__parameters:
+    joints:
+      - behindbase_to_frontbase
+
+bucket_arm_position_controller_act:
+  ros__parameters:
+    joints:
+      - bucket_arm_axis
+
+rocker_joint_position_controller_act:
+  ros__parameters:
+    joints:
+      - rocker_joint
+
+rocker_to_bucket_position_controller_act:
+  ros__parameters:
+    joints:
+      - rocker_to_bucket
+
+front_link_to_cylinder_position_controller_act:
+  ros__parameters:
+    joints:
+      - front_link_to_cylinder
+
+tube_position_controller_act:
+  ros__parameters:
+    joints:
+      - tube_to_inner_cylinder
+
+bucket_pitch_position_controller_act:
+  ros__parameters:
+    joints:
+      - bucket_pitch_joint
+
+
