@@ -50,6 +50,16 @@ The `sandandmud_x*.dae` terrain meshes under
 `src/environment_description/models/sandandmud/meshes` were created by the
 authors of this repository and are covered by the repository's MIT License.
 
+## Modified articulated wheel-loader meshes
+
+The wheel-loader meshes under `src/articulated_description/meshes` are substantially modified derivatives of assets from [GANXX/articulated_vehicle](https://github.com/GANXX/articulated_vehicle), commit `64ede1ddbe678014e6b0e5f301b8c0a0978b05e1`.
+
+The upstream `articulated_model/robot_sim_demo/package.xml` declares the package license as "BSD", but does not specify a BSD variant or provide a complete license text. The applicability of this declaration to the individual mesh assets has not been independently confirmed. Accordingly, this repository does not identify these assets as specifically BSD-2-Clause or BSD-3-Clause.
+
+The meshes have been extensively modified, including geometry cleanup, rescaling, component redesign, and joint-position alignment. These modifications do not supersede any rights associated with the original assets.
+
+The upstream license terms and redistribution permissions for these assets remain subject to clarification with the original author.
+
 ## Asset requiring further provenance review
 
 Before publishing, confirm and document the source and redistribution license
